@@ -1,0 +1,15 @@
+{
+  "name": "papermc-updater",
+  "version": "1.0.0",
+  "description": "A PaperMC Updater",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kai Wu",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "xhr2": "^0.2.1"
+  }
+}
