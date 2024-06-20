@@ -2,6 +2,15 @@
 
 This is a command-line tool that can download the specified jar file.
 
+## Installation
+
+```bash
+#!/bin/bash
+git clone https://github.com/kai-tw/PaperMC-Downloader.git
+cd PaperMC-Downloader
+npm install
+```
+
 ## Command
 
 ```

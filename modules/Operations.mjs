@@ -13,7 +13,7 @@ export const Operations = {
         console.log(`The available builds of ${mcVer}:`);
         ApiClient.getVersionData(mcVer)
             .then((json) => {
-                console.log(json["builds"].join(", "));
+                console.log(json["builds"].map((data) => data["build"]).join(", "));
             });
     },
     download: function () {
