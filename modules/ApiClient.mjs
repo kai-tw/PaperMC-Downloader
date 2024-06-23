@@ -35,11 +35,6 @@ export const ApiClient = {
      * @returns {Promise<object>}
      */
     getVersionData: function (mcVer) {
-        if (typeof mcVer !== "string") {
-            console.log("You should provide the version of Minecraft.");
-            return Promise.reject();
-        }
-
         return this.request(`https://api.papermc.io/v2/projects/paper/versions/${mcVer}/builds`);
     },
 
@@ -52,16 +47,6 @@ export const ApiClient = {
      */
     downloadFile: function (mcVer, buildVer, destination = "./download") {
         return new Promise((resolve, reject) => {
-            if (typeof mcVer !== "string") {
-                console.log("You should provide the version of Minecraft.");
-                return reject();
-            }
-
-            if (!Number.isSafeInteger(buildVer)) {
-                console.log("The given build version is not an integer.");
-                return reject();
-            }
-
             const jarDestination = `${destination}/paper-${mcVer}-${buildVer}.jar`;
             const file = fs.createWriteStream(jarDestination);
             const fileUrl = `https://api.papermc.io/v2/projects/paper/versions/${mcVer}/builds/${buildVer}/downloads/paper-${mcVer}-${buildVer}.jar`;
@@ -70,12 +55,13 @@ export const ApiClient = {
                 fs.mkdirSync(destination, { recursive: true });
             }
 
-            https.get(fileUrl, (response) => {
-                response.pipe(file);
-                file.on("finish", () => {
-                    file.close(() => resolve());
-                });
-            })
+            https
+                .get(fileUrl, (response) => {
+                    response.pipe(file);
+                    file.on("finish", () => {
+                        file.close(() => resolve());
+                    });
+                })
                 .on("error", (err) => {
                     fs.unlink(jarDestination, () => reject(err));
                 });
